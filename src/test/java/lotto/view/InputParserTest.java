@@ -1,5 +1,6 @@
 package lotto.view;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import lotto.exception.LottoError;
@@ -15,6 +16,15 @@ class InputParserTest {
     @BeforeEach
     void setUp() {
         this.inputParser = new InputParser();
+    }
+
+    @Test
+    void 로또_구입_금액_입력_문자열이_올바른_경우() {
+        String input = "10000";
+
+        int purchaseAmount = inputParser.parsePurchaseAmount(input);
+
+        assertThat(purchaseAmount).isEqualTo(10000);
     }
 
     @Test
