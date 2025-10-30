@@ -41,4 +41,21 @@ class InputParserTest {
                 .isInstanceOf(InvalidInputException.class)
                 .hasMessage(LottoError.PURCHASE_AMOUNT_INPUT_NOT_NUMBER.getMessage());
     }
+
+    @Test
+    void 당첨_번호_입력_문자열이_null인_경우_예외가_발생한다() {
+        String input = null;
+
+        assertThatThrownBy(() -> inputParser.parseWinningNumber(input))
+                .isInstanceOf(InvalidInputException.class)
+                .hasMessage(LottoError.WINNING_NUMBER_INPUT_NULL_OR_BLANK.getMessage());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"", "  "})
+    void 당첨_번호_입력_문자열이_empty거나_blank인_경우_예외가_발생한다(String input) {
+        assertThatThrownBy(() -> inputParser.parseWinningNumber(input))
+                .isInstanceOf(InvalidInputException.class)
+                .hasMessage(LottoError.WINNING_NUMBER_INPUT_NULL_OR_BLANK.getMessage());
+    }
 }
