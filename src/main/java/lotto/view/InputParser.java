@@ -5,7 +5,6 @@ import lotto.exception.LottoError;
 import lotto.util.Validator;
 
 public class InputParser {
-    //TODO: 반환 값 int로 수정 예정
     public int parsePurchaseAmount(String input) {
         validatePurchaseAmountInput(input);
 
