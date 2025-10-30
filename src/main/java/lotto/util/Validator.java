@@ -16,4 +16,13 @@ public final class Validator {
     public static boolean isDivisibleBy(int target, int divisor) {
         return target % divisor == 0;
     }
+
+    public static boolean startsOrEndsWith(String target, String substring) {
+        return target.startsWith(substring) || target.endsWith(substring);
+    }
+
+    public static boolean containsConsecutiveSubstring(String target, String substring) {
+        String doubleSub = substring + substring;
+        return target.contains(doubleSub);
+    }
 }

@@ -58,4 +58,12 @@ class InputParserTest {
                 .isInstanceOf(InvalidInputException.class)
                 .hasMessage(LottoError.WINNING_NUMBER_INPUT_NULL_OR_BLANK.getMessage());
     }
+
+    @ParameterizedTest
+    @ValueSource(strings = {",1,2,3,4,5,6", "1,2,3,4,5,6,", ",1,2,3,4,5,6,", "1,2,3,4,5,,6"})
+    void 당첨_번호_입력_문자열의_포멧이_올바르지_않은_경우_예외가_발생한다(String input) {
+        assertThatThrownBy(() -> inputParser.parseWinningNumber(input))
+                .isInstanceOf(InvalidInputException.class)
+                .hasMessage(LottoError.WINNING_NUMBER_INPUT_FORMAT_WRONG.getMessage());
+    }
 }
