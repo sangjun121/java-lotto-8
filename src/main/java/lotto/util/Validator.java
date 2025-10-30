@@ -12,4 +12,8 @@ public final class Validator {
     public static boolean isLessThan(int target, int threshold) {
         return target < threshold;
     }
+
+    public static boolean isDivisibleBy(int target, int divisor) {
+        return target % divisor == 0;
+    }
 }
