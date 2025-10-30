@@ -3,6 +3,7 @@ package lotto.view;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import java.util.List;
 import lotto.exception.LottoError;
 import lotto.exception.InvalidInputException;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,6 +26,24 @@ class InputParserTest {
         int purchaseAmount = inputParser.parsePurchaseAmount(input);
 
         assertThat(purchaseAmount).isEqualTo(10000);
+    }
+
+    @Test
+    void 로또_번호_입력_문자열이_올바른_경우() {
+        String input = "1,2,3,4,5,6";
+
+        List<Integer> lottoNumbers = inputParser.parseWinningNumber(input);
+
+        assertThat(lottoNumbers).containsExactly(1, 2, 3, 4, 5, 6);
+    }
+
+    @Test
+    void 입력된_로또_번호는_오름차순으로_정렬된다() {
+        String input = "6,5,4,3,2,1";
+
+        List<Integer> lottoNumbers = inputParser.parseWinningNumber(input);
+
+        assertThat(lottoNumbers).containsExactly(1, 2, 3, 4, 5, 6);
     }
 
     @Test
