@@ -8,6 +8,7 @@ import lotto.util.Validator;
 
 public class InputParser {
     private static final String NUMBER_SEPARATOR = ",";
+    private static final int NUMBER_SEPARATOR_COUNT = 5;
 
     public int parsePurchaseAmount(String input) {
         validatePurchaseAmountInput(input);
@@ -42,6 +43,7 @@ public class InputParser {
         checkWinningNumberNonNullOrBlank(input);
         checkWinningNumberNoConsecutiveCommas(input);
         checkWinningNumberNoCommaAtEnds(input);
+        checkWinningNumberCommaCount(input);
     }
 
     private void checkPurchaseAmountNonNullOrBlank(String input) {
@@ -64,6 +66,12 @@ public class InputParser {
 
     private void checkWinningNumberNoCommaAtEnds(String input) {
         if (Validator.startsOrEndsWith(input, NUMBER_SEPARATOR)) {
+            throw new InvalidInputException(LottoError.WINNING_NUMBER_INPUT_FORMAT_WRONG.getMessage());
+        }
+    }
+
+    private void checkWinningNumberCommaCount(String input) {
+        if (!Validator.containsCharExactCount(input, NUMBER_SEPARATOR, NUMBER_SEPARATOR_COUNT)) {
             throw new InvalidInputException(LottoError.WINNING_NUMBER_INPUT_FORMAT_WRONG.getMessage());
         }
     }

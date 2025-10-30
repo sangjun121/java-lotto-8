@@ -25,4 +25,15 @@ public final class Validator {
         String doubleSub = substring + substring;
         return target.contains(doubleSub);
     }
+
+    public static boolean containsCharExactCount(String target, String character, int expectedCount) {
+        char searchChar = character.charAt(0);
+
+        long count = target.chars()
+                .filter(c -> c == searchChar)
+                .count();
+
+        return count == expectedCount;
+    }
+
 }
