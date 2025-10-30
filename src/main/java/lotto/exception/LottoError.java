@@ -10,7 +10,10 @@ public enum LottoError {
 
     INVALID_PURCHASE_AMOUNT("[ERROR] 올바르지 않은 로또 구입 금액입니다."),
     PURCHASE_AMOUNT_LESS_THAN_MINIMUM("[ERROR] 로또 구입 금액은 1000원 이상이어야 합니다."),
-    PURCHASE_AMOUNT_NOT_MULTIPLE_OF_THOUSAND("[ERROR] 로또 구입 금액은 1000원 단위여야 합니다.");
+    PURCHASE_AMOUNT_NOT_MULTIPLE_OF_THOUSAND("[ERROR] 로또 구입 금액은 1000원 단위여야 합니다."),
+
+    INVALID_WINNGING_NUMBER("[ERROR] 올바르지 않은 당첨 번호입니다."),
+    INVALID_WINNGING_NUMBER_COUNT("[ERROR] 당첨 번호는 6개여야 합니다.");
 
     private final String message;
 
