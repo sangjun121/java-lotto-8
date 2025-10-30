@@ -1,5 +1,7 @@
 package lotto.view;
 
+import java.util.Arrays;
+import java.util.List;
 import lotto.exception.InvalidInputException;
 import lotto.exception.LottoError;
 import lotto.util.Validator;
@@ -17,9 +19,19 @@ public class InputParser {
         }
     }
 
-    // TODO: List<Integer>로 반환 타입 수정
-    public void parseWinningNumber(String input) {
+    public List<Integer> parseWinningNumber(String input) {
         validateWinningNumberInput(input);
+        List<String> numbers = splitByNumberSeparator(input);
+
+        try {
+            return numbers.stream().map(Integer::parseInt).sorted().toList();
+        } catch (NumberFormatException e) {
+            throw new InvalidInputException(LottoError.WINNING_NUMBER_INPUT_NOT_NUMERIC.getMessage());
+        }
+    }
+
+    private List<String> splitByNumberSeparator(String input) {
+        return Arrays.stream(input.split(NUMBER_SEPARATOR)).toList();
     }
 
     private void validatePurchaseAmountInput(String input) {

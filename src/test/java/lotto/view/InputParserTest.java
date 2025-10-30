@@ -66,4 +66,12 @@ class InputParserTest {
                 .isInstanceOf(InvalidInputException.class)
                 .hasMessage(LottoError.WINNING_NUMBER_INPUT_FORMAT_WRONG.getMessage());
     }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"a,2,3,4,5,6", "1,2,3c,4,5,6"})
+    void 당첨_번호_입력_문자열의_구성요소가_숫자나_쉼표가_아닌_경우_예외가_발생한다(String input) {
+        assertThatThrownBy(() -> inputParser.parseWinningNumber(input))
+                .isInstanceOf(InvalidInputException.class)
+                .hasMessage(LottoError.WINNING_NUMBER_INPUT_NOT_NUMERIC.getMessage());
+    }
 }
