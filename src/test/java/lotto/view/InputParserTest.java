@@ -33,4 +33,12 @@ class InputParserTest {
                 .isInstanceOf(InvalidInputException.class)
                 .hasMessage(LottoError.PURCHASE_AMOUNT_INPUT_NULL_OR_BLANK.getMessage());
     }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"amount", "number"})
+    void 로또_구입_금액_입력_문자열이_숫자가_아닌_경우_예외가_발생한다(String input) {
+        assertThatThrownBy(() -> inputParser.parsePurchaseAmount(input))
+                .isInstanceOf(InvalidInputException.class)
+                .hasMessage(LottoError.PURCHASE_AMOUNT_INPUT_NOT_NUMBER.getMessage());
+    }
 }

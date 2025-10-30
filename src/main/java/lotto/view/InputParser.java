@@ -6,8 +6,14 @@ import lotto.util.Validator;
 
 public class InputParser {
     //TODO: 반환 값 int로 수정 예정
-    public void parsePurchaseAmount(String input) {
+    public int parsePurchaseAmount(String input) {
         validatePurchaseAmountInput(input);
+
+        try {
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            throw new InvalidInputException(LottoError.PURCHASE_AMOUNT_INPUT_NOT_NUMBER.getMessage());
+        }
     }
 
     private void validatePurchaseAmountInput(String input) {
