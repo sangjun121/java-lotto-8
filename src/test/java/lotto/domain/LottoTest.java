@@ -1,9 +1,15 @@
 package lotto.domain;
 
+import java.util.Arrays;
+import lotto.exception.InvalidLottoException;
+import lotto.exception.InvalidWinningNumberException;
+import lotto.exception.LottoError;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -21,5 +27,33 @@ class LottoTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
-    // TODO: 추가 기능 구현에 따른 테스트 코드 작성
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "1,2,3,4,5,-6",
+            "-1,2,3,4,5,6",
+    })
+    void 로또_번호가_음수인_경우_예외가_발생한다(String value) {
+        List<Integer> numbers = Arrays.stream(value.split(","))
+                .map(Integer::parseInt)
+                .toList();
+
+        assertThatThrownBy(() -> new Lotto(numbers))
+                .isInstanceOf(InvalidLottoException.class)
+                .hasMessage(LottoError.INVALID_LOTTO_NUMBER_RANGE.getMessage());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "1,2,3,4,5,46",
+            "0,2,3,4,5,45",
+    })
+    void 로또_번호가_1과_45사이가_아닌_경우_예외가_발생한다(String value) {
+        List<Integer> numbers = Arrays.stream(value.split(","))
+                .map(Integer::parseInt)
+                .toList();
+
+        assertThatThrownBy(() -> new Lotto(numbers))
+                .isInstanceOf(InvalidLottoException.class)
+                .hasMessage(LottoError.INVALID_LOTTO_NUMBER_RANGE.getMessage());
+    }
 }

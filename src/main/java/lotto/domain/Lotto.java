@@ -19,11 +19,20 @@ public class Lotto {
 
     private void validate(List<Integer> numbers) {
         validateNumbersSize(numbers);
+        validateRange(numbers);
     }
 
     private void validateNumbersSize(List<Integer> numbers) {
         if (!Validator.hasSize(numbers, NUMBER_COUNT)) {
             throw new InvalidLottoException(LottoError.INVALID_LOTTO_SIZE.getMessage());
+        }
+    }
+
+    private void validateRange(List<Integer> numbers) {
+        for (int number : numbers) {
+            if (!Validator.isInRange(number, MIN_NUMBER, MAX_NUMBER)){
+                throw new InvalidLottoException(LottoError.INVALID_LOTTO_NUMBER_RANGE.getMessage());
+            }
         }
     }
 }

@@ -24,7 +24,8 @@ public enum LottoError {
     BONUS_NUMBER_DUPLICATED_WITH_WINNING_NUMBER("[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다."),
 
     INVALID_LOTTO("[ERROR] 올바르지 않은 로또입니다."),
-    INVALID_LOTTO_SIZE("[ERROR] 로또 번호는 6개여야 합니다.");
+    INVALID_LOTTO_SIZE("[ERROR] 로또 번호는 6개여야 합니다."),
+    INVALID_LOTTO_NUMBER_RANGE("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
 
     private final String message;
 
