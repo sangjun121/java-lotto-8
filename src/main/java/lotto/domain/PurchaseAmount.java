@@ -15,8 +15,8 @@ public final class PurchaseAmount {
         this.value = value;
     }
 
-    public int getValue() {
-        return value;
+    public int calculateLottoCount() {
+        return value / PURCHASE_AMOUNT_UNIT;
     }
 
     private void validatePurchaseAmount(int value) {
