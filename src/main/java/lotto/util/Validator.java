@@ -39,4 +39,8 @@ public final class Validator {
     public static boolean isPositive(int target) {
         return target > 0;
     }
+
+    public static boolean isInRange(int target, int min, int max) {
+        return target >= min && target <= max;
+    }
 }

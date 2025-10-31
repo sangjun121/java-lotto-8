@@ -40,4 +40,19 @@ class WinningNumberTest {
                 .isInstanceOf(InvalidWinningNumberException.class)
                 .hasMessage(LottoError.WINNING_NUMBER_NOT_POSITIVE.getMessage());
     }
+
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "1,2,3,4,5,46",
+            "0,2,3,4,5,45",
+    })
+    void 당첨_번호가_1과_45사이가_아닌_경우_예외가_발생한다(String winningNumber) {
+        List<Integer> numbers = Arrays.stream(winningNumber.split(","))
+                .map(Integer::parseInt)
+                .toList();
+
+        assertThatThrownBy(() -> new WinningNumber(numbers))
+                .isInstanceOf(InvalidWinningNumberException.class)
+                .hasMessage(LottoError.INVALID_WINNING_NUMBER_RANGE.getMessage());
+    }
 }
