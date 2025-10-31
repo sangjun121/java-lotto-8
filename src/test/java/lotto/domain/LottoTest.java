@@ -22,21 +22,21 @@ class LottoTest {
                 .map(Integer::parseInt)
                 .toList();
 
-        Lotto lotto = new Lotto(numbers);
+        Lotto lotto = Lotto.from(numbers);
 
         assertThat(lotto.getNumbers()).containsExactly(1, 2, 3, 4, 5, 6);
     }
 
     @Test
     void 로또_번호의_개수가_6개가_넘어가면_예외가_발생한다() {
-        assertThatThrownBy(() -> new Lotto(List.of(1, 2, 3, 4, 5, 6, 7)))
+        assertThatThrownBy(() -> Lotto.from(List.of(1, 2, 3, 4, 5, 6, 7)))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
     @DisplayName("로또 번호에 중복된 숫자가 있으면 예외가 발생한다.")
     @Test
     void 로또_번호에_중복된_숫자가_있으면_예외가_발생한다() {
-        assertThatThrownBy(() -> new Lotto(List.of(1, 2, 3, 4, 5, 5)))
+        assertThatThrownBy(() -> Lotto.from(List.of(1, 2, 3, 4, 5, 5)))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -50,7 +50,7 @@ class LottoTest {
                 .map(Integer::parseInt)
                 .toList();
 
-        assertThatThrownBy(() -> new Lotto(numbers))
+        assertThatThrownBy(() -> Lotto.from(numbers))
                 .isInstanceOf(InvalidLottoException.class)
                 .hasMessage(LottoError.INVALID_LOTTO_NUMBER_RANGE.getMessage());
     }
@@ -65,7 +65,7 @@ class LottoTest {
                 .map(Integer::parseInt)
                 .toList();
 
-        assertThatThrownBy(() -> new Lotto(numbers))
+        assertThatThrownBy(() -> Lotto.from(numbers))
                 .isInstanceOf(InvalidLottoException.class)
                 .hasMessage(LottoError.INVALID_LOTTO_NUMBER_RANGE.getMessage());
     }
