@@ -25,4 +25,19 @@ class WinningNumberTest {
                 .isInstanceOf(InvalidWinningNumberException.class)
                 .hasMessage(LottoError.INVALID_WINNGING_NUMBER_COUNT.getMessage());
     }
+
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "0,1,2,3,4,5",
+            "-1,2,3,4,5,6",
+    })
+    void 당첨_번호가_자연수가_아닌_경우_예외가_발생한다(String winningNumber) {
+        List<Integer> numbers = Arrays.stream(winningNumber.split(","))
+                .map(Integer::parseInt)
+                .toList();
+
+        assertThatThrownBy(() -> new WinningNumber(numbers))
+                .isInstanceOf(InvalidWinningNumberException.class)
+                .hasMessage(LottoError.WINNING_NUMBER_NOT_POSITIVE.getMessage());
+    }
 }

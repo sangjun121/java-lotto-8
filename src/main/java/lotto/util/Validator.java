@@ -36,4 +36,7 @@ public final class Validator {
         return count == expectedCount;
     }
 
+    public static boolean isPositive(int target) {
+        return target > 0;
+    }
 }
