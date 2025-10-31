@@ -2,7 +2,6 @@ package lotto.util;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public final class Validator {
 
@@ -44,7 +43,11 @@ public final class Validator {
         return target >= min && target <= max;
     }
 
-    public static boolean isDuplicated(List<Integer> numbers) {
-        return new HashSet<>(numbers).size() != numbers.size();
+    public static boolean isDuplicated(List<Integer> target) {
+        return new HashSet<>(target).size() != target.size();
+    }
+
+    public static boolean hasSize(List<Integer> target, int size) {
+        return target.size() == size;
     }
 }
