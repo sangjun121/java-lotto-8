@@ -14,13 +14,23 @@ public class Lotto {
 
     public Lotto(List<Integer> numbers) {
         validate(numbers);
-        this.numbers = numbers;
+        this.numbers = sortedNumbers(numbers);
+    }
+
+    public List<Integer> getNumbers() {
+        return numbers;
     }
 
     private void validate(List<Integer> numbers) {
         validateNumbersSize(numbers);
         validateRange(numbers);
         validateNumbersNotDuplicated(numbers);
+    }
+
+    private List<Integer> sortedNumbers(List<Integer> numbers) {
+        return numbers.stream()
+                .sorted()
+                .toList();
     }
 
     private void validateNumbersSize(List<Integer> numbers) {
@@ -31,14 +41,14 @@ public class Lotto {
 
     private void validateRange(List<Integer> numbers) {
         for (int number : numbers) {
-            if (!Validator.isInRange(number, MIN_NUMBER, MAX_NUMBER)){
+            if (!Validator.isInRange(number, MIN_NUMBER, MAX_NUMBER)) {
                 throw new InvalidLottoException(LottoError.INVALID_LOTTO_NUMBER_RANGE.getMessage());
             }
         }
     }
 
     private void validateNumbersNotDuplicated(List<Integer> numbers) {
-        if(Validator.isDuplicated(numbers)) {
+        if (Validator.isDuplicated(numbers)) {
             throw new InvalidLottoException(LottoError.LOTTO_NUMBER_DUPLICATED.getMessage());
         }
     }
