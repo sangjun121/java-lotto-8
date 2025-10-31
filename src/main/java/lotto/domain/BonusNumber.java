@@ -19,6 +19,10 @@ public final class BonusNumber {
         return new BonusNumber(value);
     }
 
+    public int getValue() {
+        return value;
+    }
+
     private static void validate(int value, WinningNumber winningNumber) {
         validateRange(value);
         validateNotDuplicatedWithWinningNumber(value, winningNumber);
