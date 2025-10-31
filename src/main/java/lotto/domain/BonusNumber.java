@@ -14,18 +14,25 @@ public final class BonusNumber {
         this.value = value;
     }
 
-    public static BonusNumber of(int value) {
-        validate(value);
+    public static BonusNumber of(int value, WinningNumber winningNumber) {
+        validate(value, winningNumber);
         return new BonusNumber(value);
     }
 
-    private static void validate(int value) {
+    private static void validate(int value, WinningNumber winningNumber) {
         validateRange(value);
+        validateNotDuplicatedWithWinningNumber(value, winningNumber);
     }
 
     private static void validateRange(int value) {
         if (!Validator.isInRange(value, MIN_NUMBER, MAX_NUMBER)) {
             throw new InvalidBonusNumberException(LottoError.INVALID_BONUS_NUMBER_RANGE.getMessage());
+        }
+    }
+
+    private static void validateNotDuplicatedWithWinningNumber(int value, WinningNumber winningNumber) {
+        if (winningNumber.contains(value)) {
+            throw new InvalidBonusNumberException(LottoError.BONUS_NUMBER_DUPLICATED_WITH_WINNING_NUMBER.getMessage());
         }
     }
 

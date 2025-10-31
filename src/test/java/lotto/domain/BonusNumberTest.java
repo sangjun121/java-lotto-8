@@ -2,6 +2,7 @@ package lotto.domain;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import java.util.List;
 import lotto.exception.InvalidBonusNumberException;
 import lotto.exception.LottoError;
 import org.junit.jupiter.api.Test;
@@ -9,19 +10,34 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 class BonusNumberTest {
+    private static final List<Integer> VALID_WINNING_NUMBER = List.of(1, 2, 3, 4, 5, 6);
 
     @Test
     void 보너스_숫자가_음수인_경우_예외가_발생한다() {
-        assertThatThrownBy(() -> BonusNumber.of(-1))
+        WinningNumber winningNumber = new WinningNumber(VALID_WINNING_NUMBER);
+
+        assertThatThrownBy(() -> BonusNumber.of(-1, winningNumber))
                 .isInstanceOf(InvalidBonusNumberException.class)
                 .hasMessage(LottoError.INVALID_BONUS_NUMBER_RANGE.getMessage());
     }
 
     @ParameterizedTest
     @ValueSource(ints = {0, 46})
-    void 보너스_숫자가_1부터_45사이가_아닌_경우_예외가_발생한다(int bonusNumber) {
-        assertThatThrownBy(() -> BonusNumber.of(bonusNumber))
+    void 보너스_숫자가_1부터_45사이가_아닌_경우_예외가_발생한다(int value) {
+        WinningNumber winningNumber = new WinningNumber(VALID_WINNING_NUMBER);
+
+        assertThatThrownBy(() -> BonusNumber.of(value, winningNumber))
                 .isInstanceOf(InvalidBonusNumberException.class)
                 .hasMessage(LottoError.INVALID_BONUS_NUMBER_RANGE.getMessage());
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {1, 2, 3, 4, 5, 6})
+    void 보너스_숫자가_로또_번호와_중복인_경우_예외가_발생한다(int value) {
+        WinningNumber winningNumber = new WinningNumber(VALID_WINNING_NUMBER);
+
+        assertThatThrownBy(() -> BonusNumber.of(value, winningNumber))
+                .isInstanceOf(InvalidBonusNumberException.class)
+                .hasMessage(LottoError.BONUS_NUMBER_DUPLICATED_WITH_WINNING_NUMBER.getMessage());
     }
 }

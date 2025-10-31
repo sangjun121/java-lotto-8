@@ -20,7 +20,8 @@ public enum LottoError {
     WINNING_NUMBER_DUPLICATED("[ERROR] 중복된 당첨 번호가 존재합니다."),
 
     INVALID_BONUS_NUMBER("[ERROR] 올바르지 않은 보너스 번호입니다."),
-    INVALID_BONUS_NUMBER_RANGE("[ERROR] 보너스 번호는 1부터 45 사이의 자연수여야 합니다.");
+    INVALID_BONUS_NUMBER_RANGE("[ERROR] 보너스 번호는 1부터 45 사이의 자연수여야 합니다."),
+    BONUS_NUMBER_DUPLICATED_WITH_WINNING_NUMBER("[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.");
 
     private final String message;
 

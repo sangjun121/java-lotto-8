@@ -42,4 +42,8 @@ public class WinningNumber {
             throw new InvalidWinningNumberException(LottoError.WINNING_NUMBER_DUPLICATED.getMessage());
         }
     }
+
+    public boolean contains(int number) {
+        return numbers.contains(number);
+    }
 }
