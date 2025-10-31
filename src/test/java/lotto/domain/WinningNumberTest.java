@@ -55,4 +55,19 @@ class WinningNumberTest {
                 .isInstanceOf(InvalidWinningNumberException.class)
                 .hasMessage(LottoError.INVALID_WINNING_NUMBER_RANGE.getMessage());
     }
+
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "1,1,3,4,5,6",
+            "1,1,1,1,1,1",
+    })
+    void 당첨_번호가_중복되는_경우_예외가_발생한다(String winningNumber) {
+        List<Integer> numbers = Arrays.stream(winningNumber.split(","))
+                .map(Integer::parseInt)
+                .toList();
+
+        assertThatThrownBy(() -> new WinningNumber(numbers))
+                .isInstanceOf(InvalidWinningNumberException.class)
+                .hasMessage(LottoError.WINNING_NUMBER_DUPLICATED.getMessage());
+    }
 }

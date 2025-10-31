@@ -20,6 +20,7 @@ public class WinningNumber {
     private void validate(List<Integer> numbers) {
         checkWinningNumberCount(numbers);
         checkWinningNumberInRange(numbers);
+        checkWinningNumberDuplicated(numbers);
     }
 
     private void checkWinningNumberCount(List<Integer> numbers) {
@@ -33,6 +34,12 @@ public class WinningNumber {
             if (!Validator.isInRange(number, MIN_NUMBER, MAX_NUMBER)) {
                 throw new InvalidWinningNumberException(LottoError.INVALID_WINNING_NUMBER_RANGE.getMessage());
             }
+        }
+    }
+
+    private void checkWinningNumberDuplicated(List<Integer> numbers) {
+        if (Validator.isDuplicated(numbers)) {
+            throw new InvalidWinningNumberException(LottoError.WINNING_NUMBER_DUPLICATED.getMessage());
         }
     }
 }

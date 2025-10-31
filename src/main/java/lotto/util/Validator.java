@@ -1,5 +1,9 @@
 package lotto.util;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public final class Validator {
 
     private Validator() {
@@ -38,5 +42,9 @@ public final class Validator {
 
     public static boolean isInRange(int target, int min, int max) {
         return target >= min && target <= max;
+    }
+
+    public static boolean isDuplicated(List<Integer> numbers) {
+        return new HashSet<>(numbers).size() != numbers.size();
     }
 }
