@@ -111,4 +111,21 @@ class InputParserTest {
                 .isInstanceOf(InvalidInputException.class)
                 .hasMessage(LottoError.WINNING_NUMBER_INPUT_NOT_NUMERIC.getMessage());
     }
+
+    @Test
+    void 보너스_번호_입력_문자열이_null인_경우_예외가_발생한다() {
+        String input = null;
+
+        assertThatThrownBy(() -> inputParser.parseBonusNumber(input))
+                .isInstanceOf(InvalidInputException.class)
+                .hasMessage(LottoError.BONUS_NUMBER_INPUT_NULL_OR_BLANK.getMessage());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"", "  "})
+    void 보너스_번호_입력_문자열이_empty거나_blank인_경우_예외가_발생한다(String input) {
+        assertThatThrownBy(() -> inputParser.parseBonusNumber(input))
+                .isInstanceOf(InvalidInputException.class)
+                .hasMessage(LottoError.BONUS_NUMBER_INPUT_NULL_OR_BLANK.getMessage());
+    }
 }

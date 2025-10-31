@@ -31,6 +31,11 @@ public class InputParser {
         }
     }
 
+    //TODO: 검증로직 작성 이후, 반환 타입 int형으로 변환
+    public void parseBonusNumber(String input) {
+        validateBonusNumberInput(input);
+    }
+
     private List<String> splitByNumberSeparator(String input) {
         return Arrays.stream(input.split(NUMBER_SEPARATOR)).toList();
     }
@@ -44,6 +49,10 @@ public class InputParser {
         checkWinningNumberNoConsecutiveCommas(input);
         checkWinningNumberNoCommaAtEnds(input);
         checkWinningNumberCommaCount(input);
+    }
+
+    private void validateBonusNumberInput(String input) {
+        checkBonusNumberNonNullOrBlank(input);
     }
 
     private void checkPurchaseAmountNonNullOrBlank(String input) {
@@ -73,6 +82,12 @@ public class InputParser {
     private void checkWinningNumberCommaCount(String input) {
         if (!Validator.containsCharExactCount(input, NUMBER_SEPARATOR, NUMBER_SEPARATOR_COUNT)) {
             throw new InvalidInputException(LottoError.WINNING_NUMBER_INPUT_FORMAT_WRONG.getMessage());
+        }
+    }
+
+    private void checkBonusNumberNonNullOrBlank(String input) {
+        if (Validator.isNullOrBlank(input)) {
+            throw new InvalidInputException(LottoError.BONUS_NUMBER_INPUT_NULL_OR_BLANK.getMessage());
         }
     }
 }
