@@ -32,8 +32,13 @@ public class InputParser {
     }
 
     //TODO: 검증로직 작성 이후, 반환 타입 int형으로 변환
-    public void parseBonusNumber(String input) {
+    public int parseBonusNumber(String input) {
         validateBonusNumberInput(input);
+        try{
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            throw new InvalidInputException(LottoError.BONUS_NUMBER_INPUT_NOT_NUMBER.getMessage());
+        }
     }
 
     private List<String> splitByNumberSeparator(String input) {

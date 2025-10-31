@@ -128,4 +128,12 @@ class InputParserTest {
                 .isInstanceOf(InvalidInputException.class)
                 .hasMessage(LottoError.BONUS_NUMBER_INPUT_NULL_OR_BLANK.getMessage());
     }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"number", "1a"})
+    void 보너스_번호_입력_문자열이_숫자가_아닌_경우_예외가_발생한다(String input) {
+        assertThatThrownBy(() -> inputParser.parseBonusNumber(input))
+                .isInstanceOf(InvalidInputException.class)
+                .hasMessage(LottoError.BONUS_NUMBER_INPUT_NOT_NUMBER.getMessage());
+    }
 }
