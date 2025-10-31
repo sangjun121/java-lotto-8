@@ -9,10 +9,10 @@ public class WinningChecker {
         this.bonusNumber = bonusNumber;
     }
 
-    //TODO: 반환값 Rank로 수정 예정
-    public void calculateRank(Lotto lotto) {
+    public Rank calculateRank(Lotto lotto) {
         int matchedCountWithWinningNumbers = countMatchedWithWinningNumbers(lotto);
-        boolean isMatchedWithBonusNumber = isMatchedwithBonusNumber(lotto);
+        boolean isMatchedWithBonusNumber = isMatchedWithBonusNumber(lotto);
+        return Rank.valueOf(matchedCountWithWinningNumbers, isMatchedWithBonusNumber);
     }
 
     private int countMatchedWithWinningNumbers(Lotto lotto) {
@@ -21,7 +21,7 @@ public class WinningChecker {
                 .count();
     }
 
-    private boolean isMatchedwithBonusNumber(Lotto lotto) {
+    private boolean isMatchedWithBonusNumber(Lotto lotto) {
         return lotto.getNumbers().contains(bonusNumber.getValue());
     }
 }
