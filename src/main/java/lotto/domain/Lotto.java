@@ -20,6 +20,7 @@ public class Lotto {
     private void validate(List<Integer> numbers) {
         validateNumbersSize(numbers);
         validateRange(numbers);
+        validateNumbersNotDuplicated(numbers);
     }
 
     private void validateNumbersSize(List<Integer> numbers) {
@@ -33,6 +34,12 @@ public class Lotto {
             if (!Validator.isInRange(number, MIN_NUMBER, MAX_NUMBER)){
                 throw new InvalidLottoException(LottoError.INVALID_LOTTO_NUMBER_RANGE.getMessage());
             }
+        }
+    }
+
+    private void validateNumbersNotDuplicated(List<Integer> numbers) {
+        if(Validator.isDuplicated(numbers)) {
+            throw new InvalidLottoException(LottoError.LOTTO_NUMBER_DUPLICATED.getMessage());
         }
     }
 }
