@@ -19,21 +19,12 @@ public class WinningNumber {
 
     private void validate(List<Integer> numbers) {
         checkWinningNumberCount(numbers);
-        checkWinningNumberPositive(numbers);
         checkWinningNumberInRange(numbers);
     }
 
     private void checkWinningNumberCount(List<Integer> numbers) {
         if (numbers.size() != NUMBER_COUNT) {
             throw new InvalidWinningNumberException(LottoError.INVALID_WINNGING_NUMBER_COUNT.getMessage());
-        }
-    }
-
-    private void checkWinningNumberPositive(List<Integer> numbers) {
-        for (Integer number : numbers) {
-            if (!Validator.isPositive(number)) {
-                throw new InvalidWinningNumberException(LottoError.WINNING_NUMBER_NOT_POSITIVE.getMessage());
-            }
         }
     }
 
