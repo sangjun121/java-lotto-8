@@ -61,4 +61,33 @@ class WinningCheckerTest {
 
         assertThat(result).isEqualTo(expectedRank);
     }
+
+    @ParameterizedTest
+    @CsvSource({
+            "'1,2,3,4,5,6',FIRST",
+            "'1,2,3,4,7,9',FOURTH",
+            "'1,2,3,4,8,9',FOURTH",
+            "'1,2,3,7,9,10',FIFTH",
+            "'1,2,3,8,9,10',FIFTH",
+            "'1,2,7,9,10,11',NONE",
+            "'1,2,8,9,10,11',NONE",
+            "'1,7,9,10,11,12',NONE",
+            "'1,8,9,10,11,12',NONE",
+            "'7,8,9,10,11,12',NONE",
+            "'8,9,10,11,12,13',NONE"
+    })
+    void 순위_2등과_3등을_제외한_모든_순위는_보너스_숫자의_영향을_받지_않는다(String lottoNumbers, Rank expectedRank) {
+        WinningNumber winningNumber = new WinningNumber(List.of(1, 2, 3, 4, 5, 6));
+        BonusNumber bonusNumber = BonusNumber.of(7, winningNumber);
+        WinningChecker winningChecker = new WinningChecker(winningNumber, bonusNumber);
+
+        List<Integer> numbers = Arrays.stream(lottoNumbers.split(","))
+                .map(Integer::parseInt)
+                .toList();
+        Lotto lotto = Lotto.from(numbers);
+
+        Rank result = winningChecker.calculateRank(lotto);
+
+        assertThat(result).isEqualTo(expectedRank);
+    }
 }
