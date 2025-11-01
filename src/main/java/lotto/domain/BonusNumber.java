@@ -19,8 +19,8 @@ public final class BonusNumber {
         return new BonusNumber(value);
     }
 
-    public int getValue() {
-        return value;
+    public boolean isMatchedWith(Lotto lotto) {
+        return lotto.getNumbers().contains(value);
     }
 
     private static void validate(int value, WinningNumber winningNumber) {

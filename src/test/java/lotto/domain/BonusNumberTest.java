@@ -1,5 +1,6 @@
 package lotto.domain;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.List;
@@ -39,5 +40,17 @@ class BonusNumberTest {
         assertThatThrownBy(() -> BonusNumber.of(value, winningNumber))
                 .isInstanceOf(InvalidBonusNumberException.class)
                 .hasMessage(LottoError.BONUS_NUMBER_DUPLICATED_WITH_WINNING_NUMBER.getMessage());
+    }
+
+    @Test
+    void 로또_번호가_보너스_번호와_일치하는_경우_참_값이_반환된다() {
+        WinningNumber winningNumber = new WinningNumber(List.of(1, 2, 3, 4, 5, 6));
+        BonusNumber bonusNumber = BonusNumber.of(45, winningNumber);
+
+        Lotto lotto = Lotto.from(List.of(7, 8, 9, 10, 11, 45));
+
+        boolean result = bonusNumber.isMatchedWith(lotto);
+
+        assertThat(result).isTrue();
     }
 }

@@ -17,8 +17,16 @@ public class WinningNumber {
         this.numbers = List.copyOf(numbers);
     }
 
-    public List<Integer> getNumbers() {
-        return List.copyOf(numbers);
+    public boolean contains(int number) {
+        return numbers.contains(number);
+    }
+
+    public int countMatchesWith(Lotto lotto) {
+        long count = lotto.getNumbers().stream()
+                .filter(numbers::contains)
+                .count();
+
+        return Math.toIntExact(count);
     }
 
     private void validate(List<Integer> numbers) {
@@ -45,9 +53,5 @@ public class WinningNumber {
         if (Validator.isDuplicated(numbers)) {
             throw new InvalidWinningNumberException(LottoError.WINNING_NUMBER_DUPLICATED.getMessage());
         }
-    }
-
-    public boolean contains(int number) {
-        return numbers.contains(number);
     }
 }
