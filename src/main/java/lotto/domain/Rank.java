@@ -4,37 +4,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum Rank {
-    FIRST(6, 2000000000, true) {
+    FIRST(6, false, 2000000000, true) {
         @Override
         public boolean matches(int count, boolean isBonus) {
             return count == this.getMatchCount();
         }
     },
-    SECOND(5, 30000000, true) {
+    SECOND(5, true, 30000000, true) {
         @Override
         public boolean matches(int count, boolean isBonus) {
             return count == 5 && isBonus;
         }
     },
-    THIRD(5, 1500000, true) {
+    THIRD(5, false, 1500000, true) {
         @Override
         public boolean matches(int count, boolean isBonus) {
             return count == 5 && !isBonus;
         }
     },
-    FOURTH(4, 50000, true) {
+    FOURTH(4, false, 50000, true) {
         @Override
         public boolean matches(int count, boolean isBonus) {
             return count == 4;
         }
     },
-    FIFTH(3, 5000, true) {
+    FIFTH(3, false, 5000, true) {
         @Override
         public boolean matches(int count, boolean isBonus) {
             return count == 3;
         }
     },
-    NONE(-1, 0, false) {
+    NONE(-1, false, 0, false) {
         @Override
         public boolean matches(int count, boolean isBonus) {
             return count < 3;
@@ -42,17 +42,23 @@ public enum Rank {
     };
 
     private final int matchCount;
+    private final boolean isBonus;
     private final int prizeMoney;
     private final boolean isWinning;
 
-    Rank(int matchCount, int prizeMoney, boolean isWinning) {
+    Rank(int matchCount, boolean isBonus, int prizeMoney, boolean isWinning) {
         this.matchCount = matchCount;
+        this.isBonus = isBonus;
         this.prizeMoney = prizeMoney;
         this.isWinning = isWinning;
     }
 
     public int getMatchCount() {
         return matchCount;
+    }
+
+    public boolean isBonus() {
+        return isBonus;
     }
 
     public int getPrizeMoney() {

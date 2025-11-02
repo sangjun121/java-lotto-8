@@ -19,6 +19,10 @@ public final class PurchaseAmount {
         return value / PURCHASE_AMOUNT_UNIT;
     }
 
+    public int getValue() {
+        return value;
+    }
+
     private void validatePurchaseAmount(int value) {
         checkMinimumPurchaseAmount(value);
         checkMultipleOfThousand(value);

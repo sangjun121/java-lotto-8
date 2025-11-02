@@ -1,6 +1,7 @@
 package lotto.controller;
 
 import java.util.List;
+import lotto.controller.dto.WinningStatistic;
 import lotto.domain.BonusNumber;
 import lotto.domain.Lottos;
 import lotto.domain.PurchaseAmount;
@@ -28,6 +29,10 @@ public class LottoController {
 
         WinningNumber winningNumber = readWinningNumber();
         BonusNumber bonusNumber = readBonusNumber(winningNumber);
+
+        List<WinningStatistic> winningStatistics = lottoService.calculateWinningStatistic(lottos, winningNumber,
+                bonusNumber);
+        outputView.printWinningStatistics(winningStatistics);
     }
 
     private PurchaseAmount readPurchaseAmount() {
