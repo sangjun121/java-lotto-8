@@ -7,6 +7,7 @@ import lotto.domain.RandomNumberGenerator;
 import lotto.service.LottoService;
 import lotto.view.InputParser;
 import lotto.view.InputView;
+import lotto.view.OutputView;
 
 public class AppConfig {
     private static final AppConfig INSTANCE = new AppConfig();
@@ -22,8 +23,12 @@ public class AppConfig {
         return new InputView(inputParser());
     }
 
+    public OutputView outputView() {
+        return new OutputView();
+    }
+
     public LottoController lottoController() {
-        return new LottoController(inputView(), lottoService());
+        return new LottoController(inputView(), outputView(), lottoService());
     }
 
     public LottoService lottoService() {
