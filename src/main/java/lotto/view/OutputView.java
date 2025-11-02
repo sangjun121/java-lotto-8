@@ -5,7 +5,7 @@ import java.util.List;
 import lotto.controller.dto.WinningStatistic;
 
 public class OutputView {
-    private static final String LOTTO_COUNT_MESSAGE = "\n%d개를 구매했습니다.";
+    private static final String LOTTO_COUNT_MESSAGE = "\n%d개를 구매했습니다.\n";
     private static final String WINNING_STATISTICS_GUIDE = "\n당첨 통계\n---";
     private static final String MATCH_COUNT_MESSAGE = "%d개 일치";
     private static final String MATCH_BONUS_NUMBER_MESSAGE = ", 보너스 볼 일치";
@@ -18,7 +18,7 @@ public class OutputView {
     }
 
     public void printLottos(String lottos) {
-        System.out.printf(lottos);
+        System.out.println(lottos);
     }
 
     public void printWinningStatistics(List<WinningStatistic> winningStatistics) {
