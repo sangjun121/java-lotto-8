@@ -24,19 +24,23 @@ public class LottoController {
 
     public void run() {
         PurchaseAmount purchaseAmount = readPurchaseAmount();
-        Lottos lottos = lottoService.generateLotto(purchaseAmount);
-        outputView.printLottoCount(purchaseAmount.calculateLottoCount());
-        outputView.printLottos(lottos.toString());
+        Lottos lottos = generateLottos(purchaseAmount);
 
         WinningNumber winningNumber = readWinningNumber();
         BonusNumber bonusNumber = readBonusNumber(winningNumber);
 
         List<WinningStatistic> winningStatistics = lottoService.calculateWinningStatistic(lottos, winningNumber,
                 bonusNumber);
-        outputView.printWinningStatistics(winningStatistics);
-
         BigDecimal profitRate = lottoService.calculateProfitRate(lottos, winningNumber, bonusNumber, purchaseAmount);
-        outputView.printProfitRate(profitRate);
+
+        printResults(winningStatistics, profitRate);
+    }
+
+    private Lottos generateLottos(PurchaseAmount purchaseAmount) {
+        Lottos lottos = lottoService.generateLotto(purchaseAmount);
+        outputView.printLottoCount(purchaseAmount.calculateLottoCount());
+        outputView.printLottos(lottos.toString());
+        return lottos;
     }
 
     private PurchaseAmount readPurchaseAmount() {
@@ -67,5 +71,10 @@ public class LottoController {
             System.out.println(e.getMessage());
             return readBonusNumber(winningNumber);
         }
+    }
+
+    private void printResults(List<WinningStatistic> winningStatistics, BigDecimal profitRate) {
+        outputView.printWinningStatistics(winningStatistics);
+        outputView.printProfitRate(profitRate);
     }
 }
