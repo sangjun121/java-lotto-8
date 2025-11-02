@@ -2,8 +2,7 @@ package lotto.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.EnumMap;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,8 +18,7 @@ class LottosTest {
         validBonusNumber = BonusNumber.of(7, validWinningNumber);
     }
 
-    @Test
-    void 매칭_결과에_따라_올바른_Rank_개수가_반환된다() {
+    private Lottos createAllRankLottos() {
         Lotto first = Lotto.from(List.of(1, 2, 3, 4, 5, 6));
         Lotto second = Lotto.from(List.of(1, 2, 3, 4, 5, 7));
         Lotto third = Lotto.from(List.of(1, 2, 3, 4, 5, 8));
@@ -28,9 +26,13 @@ class LottosTest {
         Lotto fifth = Lotto.from(List.of(1, 2, 3, 7, 8, 9));
         Lotto none = Lotto.from(List.of(1, 2, 7, 8, 9, 10));
 
-        Lottos lottos = new Lottos(List.of(first, second, third, fourth, fifth, none));
+        return new Lottos(List.of(first, second, third, fourth, fifth, none));
+    }
 
-        Map<Rank, Integer> result = lottos.countByRank(validWinningNumber, validBonusNumber);
+    @Test
+    void 매칭_결과에_따라_올바른_Rank_개수가_반환된다() {
+        Lottos allRankLottos = createAllRankLottos();
+        Map<Rank, Integer> result = allRankLottos.countByRank(validWinningNumber, validBonusNumber);
 
         assertThat(result)
                 .containsEntry(Rank.FIRST, 1)
@@ -49,5 +51,18 @@ class LottosTest {
         Map<Rank, Integer> result = lottos.countByRank(validWinningNumber, validBonusNumber);
 
         assertThat(result).containsEntry(Rank.FIRST, 5);
+    }
+
+    @Test
+    void 로또의_전체_상금_합계를_계산한다() {
+        Lottos allRankLottos = createAllRankLottos();
+        int expectedTotalPrizeMoney = Arrays.stream(Rank.values())
+                .filter(rank -> rank != Rank.NONE)
+                .mapToInt(Rank::getPrizeMoney)
+                .sum();
+
+        int resultTotalPrizeMoney = allRankLottos.calculateTotalPrize(validWinningNumber, validBonusNumber);
+
+        assertThat(resultTotalPrizeMoney).isEqualTo(expectedTotalPrizeMoney);
     }
 }

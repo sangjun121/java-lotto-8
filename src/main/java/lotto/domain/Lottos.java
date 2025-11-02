@@ -30,6 +30,18 @@ public class Lottos {
         return rankCounts;
     }
 
+    public int calculateTotalPrize(WinningNumber winningNumber, BonusNumber bonusNumber) {
+        return lottos.stream()
+                .mapToInt(lotto -> {
+                    Rank rank = Rank.valueOf(
+                            winningNumber.countMatchesWith(lotto),
+                            bonusNumber.isMatchedWith(lotto)
+                    );
+                    return rank.getPrizeMoney();
+                })
+                .sum();
+    }
+
     private void mergeCount(Map<Rank, Integer> rankCounts, Rank rank) {
         if (rank != Rank.NONE) {
             rankCounts.merge(rank, COUNT_UNIT, Integer::sum);
