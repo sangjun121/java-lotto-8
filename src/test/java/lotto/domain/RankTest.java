@@ -2,6 +2,8 @@ package lotto.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -25,5 +27,19 @@ class RankTest {
         Rank result = Rank.valueOf(matchCount, isBonus);
 
         assertThat(result).isEqualTo(expectedRank);
+    }
+
+    @Test
+    void 전체_순위_중_당첨인_순위만_반환한다() {
+        List<Rank> result = Rank.winningRanks();
+
+        assertThat(result)
+                .containsExactlyInAnyOrder(
+                        Rank.FIRST,
+                        Rank.SECOND,
+                        Rank.THIRD,
+                        Rank.FOURTH,
+                        Rank.FIFTH
+                ).doesNotContain(Rank.NONE);
     }
 }
