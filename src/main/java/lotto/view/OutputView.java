@@ -10,8 +10,8 @@ public class OutputView {
     private static final String MATCH_COUNT_MESSAGE = "%d개 일치";
     private static final String MATCH_BONUS_NUMBER_MESSAGE = ", 보너스 볼 일치";
     private static final String PRIZED_MONEY_MESSAGE = " (%,d원)";
-    private static final String COUNT_MESSAGE = " - %d개";
-    private static final String PROFIT_RATE_MESSAGE = "\n총 수익률은 %s%%입니다.";
+    private static final String COUNT_MESSAGE = " - %d개\n";
+    private static final String PROFIT_RATE_MESSAGE = "총 수익률은 %s%%입니다.";
 
     public void printLottoCount(int lottoCount) {
         System.out.printf(LOTTO_COUNT_MESSAGE, lottoCount);
@@ -36,6 +36,7 @@ public class OutputView {
         if (winningStatistic.isBonus()) {
             System.out.printf(MATCH_COUNT_MESSAGE + MATCH_BONUS_NUMBER_MESSAGE + PRIZED_MONEY_MESSAGE + COUNT_MESSAGE,
                     winningStatistic.matchCount(), winningStatistic.prizeMoney(), winningStatistic.count());
+            return;
         }
 
         System.out.printf(MATCH_COUNT_MESSAGE + PRIZED_MONEY_MESSAGE + COUNT_MESSAGE,

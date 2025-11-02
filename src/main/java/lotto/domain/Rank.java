@@ -1,6 +1,7 @@
 package lotto.domain;
 
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 public enum Rank {
@@ -82,13 +83,10 @@ public enum Rank {
     }
 
     public static List<Rank> winningRanks() {
-        List<Rank> ranks = new ArrayList<>();
-        for (Rank rank : values()) {
-            if (rank.isWinning()) {
-                ranks.add(rank);
-            }
-        }
-        return ranks;
+        return Arrays.stream(Rank.values())
+                .filter(Rank::isWinning)
+                .sorted(Comparator.comparing(Rank::getPrizeMoney))
+                .toList();
     }
 }
 

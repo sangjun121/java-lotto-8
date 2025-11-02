@@ -14,6 +14,8 @@ import lotto.domain.Rank;
 import lotto.domain.WinningNumber;
 
 public class LottoService {
+    private static final int INITAL_SUM = 0;
+
     private final LottoMachine lottoMachine;
 
     public LottoService(LottoMachine lottoMachine) {
@@ -31,22 +33,30 @@ public class LottoService {
     }
 
     public BigDecimal calculateProfitRate(Lottos lottos, WinningNumber winningNumber, BonusNumber bonusNumber,
-                                      PurchaseAmount purchaseAmount) {
+                                          PurchaseAmount purchaseAmount) {
         return lottos.calculateProfitRate(winningNumber, bonusNumber, purchaseAmount.getValue());
     }
 
     private List<WinningStatistic> createWinningStatistics(Map<Rank, Integer> rankCounts) {
         List<WinningStatistic> winningStatistics = new ArrayList<>();
 
-        rankCounts.forEach((rank, count) -> winningStatistics.add(
-                new WinningStatistic(
-                        rank.getMatchCount(),
-                        rank.getPrizeMoney(),
-                        count,
-                        rank.isBonus())));
+        List<Rank> winningRanks = Rank.winningRanks();
 
-        winningStatistics.sort(Comparator.comparingInt(WinningStatistic::matchCount));
+        for (Rank rank : winningRanks) {
+            int rankCount = rankCounts.getOrDefault(rank, INITAL_SUM);
+            winningStatistics.add(createWinningStatistic(rank, rankCount));
+        }
+
+        winningStatistics.sort(Comparator.comparingInt(WinningStatistic::prizeMoney));
 
         return winningStatistics;
+    }
+
+    private WinningStatistic createWinningStatistic(Rank rank, int rankCount) {
+        return new WinningStatistic(
+                rank.getMatchCount(),
+                rank.getPrizeMoney(),
+                rankCount,
+                rank.isBonus());
     }
 }
