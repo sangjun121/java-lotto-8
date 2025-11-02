@@ -2,6 +2,7 @@ package lotto.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -64,5 +65,42 @@ class LottosTest {
         int resultTotalPrizeMoney = allRankLottos.calculateTotalPrize(validWinningNumber, validBonusNumber);
 
         assertThat(resultTotalPrizeMoney).isEqualTo(expectedTotalPrizeMoney);
+    }
+
+    @Test
+    void 총_상금이_구입_금액과_같을_경우_수익률은_100퍼센트이다() {
+        Lotto first = Lotto.from(List.of(1, 2, 3, 4, 5, 6));
+        Lottos lottos = new Lottos(List.of(first));
+        int purchaseAmount = Rank.FIRST.getPrizeMoney();
+
+        BigDecimal profitRate = lottos.calculateProfitRate(validWinningNumber, validBonusNumber, purchaseAmount);
+
+        assertThat(profitRate.toPlainString()).isEqualTo("100.0");
+    }
+
+    @Test
+    void 총_상금이_구입_금액의_절반일_경우_수익률은_50퍼센트이다() {
+        Lotto third = Lotto.from(List.of(1, 2, 3, 4, 5, 8));
+        Lottos lottos = new Lottos(List.of(third));
+        int purchaseAmount = Rank.THIRD.getPrizeMoney() * 2;
+
+        BigDecimal profitRate = lottos.calculateProfitRate(validWinningNumber, validBonusNumber, purchaseAmount);
+
+        assertThat(profitRate.toPlainString()).isEqualTo("50.0");
+    }
+
+    @Test
+    void 수익률은_반올림하여_소수점_첫째자리까지_반환된다() {
+        Lottos spyLottos = new Lottos(List.of()) {
+            @Override
+            public int calculateTotalPrize(WinningNumber winningNumber, BonusNumber bonusNumber) {
+                return 3333;
+            }
+        };
+        int purchaseAmount = 10000;
+
+        BigDecimal profitRate = spyLottos.calculateProfitRate(validWinningNumber, validBonusNumber, purchaseAmount);
+
+        assertThat(profitRate.toPlainString()).isEqualTo("33.3");
     }
 }

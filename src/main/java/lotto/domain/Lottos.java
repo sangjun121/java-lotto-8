@@ -1,11 +1,16 @@
 package lotto.domain;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
 public class Lottos {
     private static final int COUNT_UNIT = 1;
+    private static final int PERCENTAGE_SCALE = 100;
+    private static final int CALCULATION_SCALE = 3;
+    private static final int DISPLAY_SCALE = 1;
 
     private final List<Lotto> lottos;
 
@@ -40,6 +45,15 @@ public class Lottos {
                     return rank.getPrizeMoney();
                 })
                 .sum();
+    }
+
+    public BigDecimal calculateProfitRate(WinningNumber winningNumber, BonusNumber bonusNumber, int purchaseAmount) {
+        int totalPrizeMoney = calculateTotalPrize(winningNumber, bonusNumber);
+
+        return BigDecimal.valueOf(totalPrizeMoney)
+                .divide(BigDecimal.valueOf(purchaseAmount), CALCULATION_SCALE, RoundingMode.HALF_UP)
+                .multiply(BigDecimal.valueOf(PERCENTAGE_SCALE))
+                .setScale(DISPLAY_SCALE, RoundingMode.HALF_UP);
     }
 
     private void mergeCount(Map<Rank, Integer> rankCounts, Rank rank) {
