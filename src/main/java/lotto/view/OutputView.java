@@ -1,5 +1,6 @@
 package lotto.view;
 
+import java.math.BigDecimal;
 import java.util.List;
 import lotto.controller.dto.WinningStatistic;
 
@@ -10,6 +11,7 @@ public class OutputView {
     private static final String MATCH_BONUS_NUMBER_MESSAGE = ", 보너스 볼 일치";
     private static final String PRIZED_MONEY_MESSAGE = " (%,d원)";
     private static final String COUNT_MESSAGE = " - %d개";
+    private static final String PROFIT_RATE_MESSAGE = "\n총 수익률은 %s%%입니다.";
 
     public void printLottoCount(int lottoCount) {
         System.out.printf(LOTTO_COUNT_MESSAGE, lottoCount);
@@ -24,6 +26,10 @@ public class OutputView {
         for (WinningStatistic winningStatistic : winningStatistics) {
             printRankStatistic(winningStatistic);
         }
+    }
+
+    public void printProfitRate(BigDecimal profitRate) {
+        System.out.printf(PROFIT_RATE_MESSAGE, profitRate.toPlainString());
     }
 
     private void printRankStatistic(WinningStatistic winningStatistic) {

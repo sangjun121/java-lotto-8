@@ -1,5 +1,6 @@
 package lotto.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 import lotto.controller.dto.WinningStatistic;
 import lotto.domain.BonusNumber;
@@ -33,6 +34,9 @@ public class LottoController {
         List<WinningStatistic> winningStatistics = lottoService.calculateWinningStatistic(lottos, winningNumber,
                 bonusNumber);
         outputView.printWinningStatistics(winningStatistics);
+
+        BigDecimal profitRate = lottoService.calculateProfitRate(lottos, winningNumber, bonusNumber, purchaseAmount);
+        outputView.printProfitRate(profitRate);
     }
 
     private PurchaseAmount readPurchaseAmount() {

@@ -1,5 +1,6 @@
 package lotto.service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -27,6 +28,11 @@ public class LottoService {
                                                             BonusNumber bonusNumber) {
         Map<Rank, Integer> rankCounts = lottos.countByRank(winningNumber, bonusNumber);
         return createWinningStatistics(rankCounts);
+    }
+
+    public BigDecimal calculateProfitRate(Lottos lottos, WinningNumber winningNumber, BonusNumber bonusNumber,
+                                      PurchaseAmount purchaseAmount) {
+        return lottos.calculateProfitRate(winningNumber, bonusNumber, purchaseAmount.getValue());
     }
 
     private List<WinningStatistic> createWinningStatistics(Map<Rank, Integer> rankCounts) {
