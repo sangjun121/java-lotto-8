@@ -23,6 +23,8 @@ public class LottoController {
     public void run() {
         PurchaseAmount purchaseAmount = readPurchaseAmount();
         Lottos lottos = lottoService.generateLotto(purchaseAmount);
+        outputView.printLottoCount(purchaseAmount.calculateLottoCount());
+        outputView.printLottos(lottos.toString());
 
         WinningNumber winningNumber = readWinningNumber();
         BonusNumber bonusNumber = readBonusNumber(winningNumber);

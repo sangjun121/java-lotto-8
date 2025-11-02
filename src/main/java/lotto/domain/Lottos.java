@@ -56,6 +56,16 @@ public class Lottos {
                 .setScale(DISPLAY_SCALE, RoundingMode.HALF_UP);
     }
 
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (Lotto lotto : lottos) {
+            sb.append(lotto.toString())
+                    .append("\n");
+        }
+
+        return sb.toString().trim();
+    }
+
     private void mergeCount(Map<Rank, Integer> rankCounts, Rank rank) {
         if (rank != Rank.NONE) {
             rankCounts.merge(rank, COUNT_UNIT, Integer::sum);

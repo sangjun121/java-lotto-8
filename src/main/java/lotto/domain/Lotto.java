@@ -73,4 +73,9 @@ public final class Lotto {
     public int hashCode() {
         return numbers.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return numbers.toString();
+    }
 }
