@@ -4,6 +4,7 @@ import lotto.controller.LottoController;
 import lotto.domain.LottoMachine;
 import lotto.domain.NumberGenerator;
 import lotto.domain.RandomNumberGenerator;
+import lotto.service.LottoService;
 import lotto.view.InputParser;
 import lotto.view.InputView;
 
@@ -21,12 +22,16 @@ public class AppConfig {
         return new InputView(inputParser());
     }
 
-    public LottoMachine lottoMachine() {
-        return new LottoMachine(numberGenerator());
+    public LottoController lottoController() {
+        return new LottoController(inputView(), lottoService());
     }
 
-    public LottoController lottoController() {
-        return new LottoController(inputView());
+    public LottoService lottoService() {
+        return new LottoService(lottoMachine());
+    }
+
+    private LottoMachine lottoMachine() {
+        return new LottoMachine(numberGenerator());
     }
 
     private InputParser inputParser() {
