@@ -1,5 +1,6 @@
 package lotto.config;
 
+import lotto.controller.LottoController;
 import lotto.domain.LottoMachine;
 import lotto.domain.NumberGenerator;
 import lotto.domain.RandomNumberGenerator;
@@ -22,6 +23,10 @@ public class AppConfig {
 
     public LottoMachine lottoMachine() {
         return new LottoMachine(numberGenerator());
+    }
+
+    public LottoController lottoController() {
+        return new LottoController(inputView());
     }
 
     private InputParser inputParser() {
