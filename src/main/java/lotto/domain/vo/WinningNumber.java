@@ -1,4 +1,4 @@
-package lotto.domain;
+package lotto.domain.vo;
 
 import java.util.List;
 import lotto.exception.InvalidWinningNumberException;
@@ -12,9 +12,13 @@ public class WinningNumber {
 
     private final List<Integer> numbers;
 
-    public WinningNumber(List<Integer> numbers) {
+    private WinningNumber(List<Integer> numbers) {
         validate(numbers);
         this.numbers = List.copyOf(numbers);
+    }
+
+    public static WinningNumber from(List<Integer> numbers) {
+        return new WinningNumber(numbers);
     }
 
     public boolean contains(int number) {

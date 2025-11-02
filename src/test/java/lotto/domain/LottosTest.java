@@ -6,6 +6,9 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import lotto.domain.vo.BonusNumber;
+import lotto.domain.vo.Lotto;
+import lotto.domain.vo.WinningNumber;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,8 +18,8 @@ class LottosTest {
 
     @BeforeEach
     void setUp() {
-        validWinningNumber = new WinningNumber(List.of(1, 2, 3, 4, 5, 6));
-        validBonusNumber = BonusNumber.of(7, validWinningNumber);
+        validWinningNumber = WinningNumber.from(List.of(1, 2, 3, 4, 5, 6));
+        validBonusNumber = BonusNumber.from(7, validWinningNumber);
     }
 
     private Lottos createAllRankLottos() {

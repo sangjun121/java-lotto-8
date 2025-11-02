@@ -1,6 +1,7 @@
 package lotto.domain;
 
 import java.util.Arrays;
+import lotto.domain.vo.Lotto;
 import lotto.exception.InvalidLottoException;
 import lotto.exception.LottoError;
 import org.junit.jupiter.api.DisplayName;

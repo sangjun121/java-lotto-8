@@ -1,4 +1,4 @@
-package lotto.domain;
+package lotto.domain.vo;
 
 import lotto.exception.InvalidBonusNumberException;
 import lotto.exception.LottoError;
@@ -14,7 +14,7 @@ public final class BonusNumber {
         this.value = value;
     }
 
-    public static BonusNumber of(int value, WinningNumber winningNumber) {
+    public static BonusNumber from(int value, WinningNumber winningNumber) {
         validate(value, winningNumber);
         return new BonusNumber(value);
     }

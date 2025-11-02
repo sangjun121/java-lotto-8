@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import lotto.config.AppConfig;
 import lotto.domain.Lottos;
-import lotto.domain.PurchaseAmount;
+import lotto.domain.vo.PurchaseAmount;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +18,7 @@ class LottoServiceTest {
 
     @Test
     void 당첨금액을_바탕으로_올바른_개수의_로또를_생성한다() {
-        PurchaseAmount purchaseAmount = new PurchaseAmount(10000);
+        PurchaseAmount purchaseAmount = PurchaseAmount.from(10000);
 
         Lottos lottos = lottoService.generateLotto(purchaseAmount);
         int resultLottosSize = lottos.getLottos().size();

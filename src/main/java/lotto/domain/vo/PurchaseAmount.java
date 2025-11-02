@@ -1,4 +1,4 @@
-package lotto.domain;
+package lotto.domain.vo;
 
 import lotto.exception.InvalidPurchaseAmountException;
 import lotto.exception.LottoError;
@@ -10,9 +10,13 @@ public final class PurchaseAmount {
 
     private final int value;
 
-    public PurchaseAmount(int value) {
+    private PurchaseAmount(int value) {
         validatePurchaseAmount(value);
         this.value = value;
+    }
+
+    public static PurchaseAmount from(int value) {
+        return new PurchaseAmount(value);
     }
 
     public int calculateLottoCount() {
@@ -38,5 +42,22 @@ public final class PurchaseAmount {
         if (!Validator.isDivisibleBy(value, PURCHASE_AMOUNT_UNIT)) {
             throw new InvalidPurchaseAmountException(LottoError.PURCHASE_AMOUNT_NOT_MULTIPLE_OF_THOUSAND.getMessage());
         }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof PurchaseAmount)) {
+            return false;
+        }
+        PurchaseAmount that = (PurchaseAmount) obj;
+        return this.value == that.value;
+    }
+
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(value);
     }
 }

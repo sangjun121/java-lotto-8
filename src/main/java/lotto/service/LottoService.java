@@ -6,12 +6,12 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import lotto.controller.dto.WinningStatistic;
-import lotto.domain.BonusNumber;
+import lotto.domain.vo.BonusNumber;
 import lotto.domain.LottoMachine;
 import lotto.domain.Lottos;
-import lotto.domain.PurchaseAmount;
+import lotto.domain.vo.PurchaseAmount;
 import lotto.domain.Rank;
-import lotto.domain.WinningNumber;
+import lotto.domain.vo.WinningNumber;
 
 public class LottoService {
     private static final int INITAL_SUM = 0;

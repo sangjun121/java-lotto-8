@@ -3,10 +3,10 @@ package lotto.controller;
 import java.math.BigDecimal;
 import java.util.List;
 import lotto.controller.dto.WinningStatistic;
-import lotto.domain.BonusNumber;
+import lotto.domain.vo.BonusNumber;
 import lotto.domain.Lottos;
-import lotto.domain.PurchaseAmount;
-import lotto.domain.WinningNumber;
+import lotto.domain.vo.PurchaseAmount;
+import lotto.domain.vo.WinningNumber;
 import lotto.service.LottoService;
 import lotto.view.InputView;
 import lotto.view.OutputView;
@@ -46,7 +46,7 @@ public class LottoController {
     private PurchaseAmount readPurchaseAmount() {
         try {
             int purchaseAmountInput = inputView.readPurchaseAmount();
-            return new PurchaseAmount(purchaseAmountInput);
+            return PurchaseAmount.from(purchaseAmountInput);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return readPurchaseAmount();
@@ -56,7 +56,7 @@ public class LottoController {
     private WinningNumber readWinningNumber() {
         try {
             List<Integer> winningNumberInput = inputView.readWinningNumber();
-            return new WinningNumber(winningNumberInput);
+            return WinningNumber.from(winningNumberInput);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return readWinningNumber();
@@ -66,7 +66,7 @@ public class LottoController {
     private BonusNumber readBonusNumber(WinningNumber winningNumber) {
         try {
             int bonusNumberInput = inputView.readBonusNumber();
-            return BonusNumber.of(bonusNumberInput, winningNumber);
+            return BonusNumber.from(bonusNumberInput, winningNumber);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return readBonusNumber(winningNumber);

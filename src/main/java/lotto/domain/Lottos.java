@@ -5,6 +5,9 @@ import java.math.RoundingMode;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+import lotto.domain.vo.BonusNumber;
+import lotto.domain.vo.Lotto;
+import lotto.domain.vo.WinningNumber;
 
 public class Lottos {
     private static final int COUNT_UNIT = 1;
