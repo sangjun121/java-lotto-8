@@ -5,7 +5,7 @@ import lotto.exception.InvalidWinningNumberException;
 import lotto.exception.LottoError;
 import lotto.util.Validator;
 
-public class WinningNumber {
+public final class WinningNumber {
     private static final int NUMBER_COUNT = 6;
     private static final int MIN_NUMBER = 1;
     private static final int MAX_NUMBER = 45;
