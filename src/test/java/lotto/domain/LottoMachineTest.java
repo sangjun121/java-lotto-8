@@ -23,7 +23,6 @@ class LottoMachineTest {
                 .hasSize(VALID_LOTTO_COUNT)
                 .extracting(Lotto::getNumbers)
                 .allMatch(numbers -> numbers.equals(List.of(1, 2, 3, 4, 5, 6)));
-
     }
 
     @Test
