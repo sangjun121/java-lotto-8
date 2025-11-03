@@ -45,51 +45,51 @@ public class InputParser {
     }
 
     private void validatePurchaseAmountInput(String input) {
-        checkPurchaseAmountNonNullOrBlank(input);
+        validatePurchaseAmountNonNullOrBlank(input);
     }
 
     private void validateWinningNumberInput(String input) {
-        checkWinningNumberNonNullOrBlank(input);
-        checkWinningNumberNoConsecutiveCommas(input);
-        checkWinningNumberNoCommaAtEnds(input);
-        checkWinningNumberCommaCount(input);
+        validateWinningNumberNonNullOrBlank(input);
+        validateWinningNumberNoConsecutiveCommas(input);
+        validateWinningNumberNoCommaAtEnds(input);
+        validateWinningNumberCommaCount(input);
     }
 
     private void validateBonusNumberInput(String input) {
-        checkBonusNumberNonNullOrBlank(input);
+        validateBonusNumberNonNullOrBlank(input);
     }
 
-    private void checkPurchaseAmountNonNullOrBlank(String input) {
+    private void validatePurchaseAmountNonNullOrBlank(String input) {
         if (Validator.isNullOrBlank(input)) {
             throw new InvalidInputException(LottoError.PURCHASE_AMOUNT_INPUT_NULL_OR_BLANK.getMessage());
         }
     }
 
-    private void checkWinningNumberNonNullOrBlank(String input) {
+    private void validateWinningNumberNonNullOrBlank(String input) {
         if (Validator.isNullOrBlank(input)) {
             throw new InvalidInputException(LottoError.WINNING_NUMBER_INPUT_NULL_OR_BLANK.getMessage());
         }
     }
 
-    private void checkWinningNumberNoConsecutiveCommas(String input) {
+    private void validateWinningNumberNoConsecutiveCommas(String input) {
         if (Validator.containsConsecutiveSubstring(input, NUMBER_SEPARATOR)) {
             throw new InvalidInputException(LottoError.WINNING_NUMBER_INPUT_FORMAT_WRONG.getMessage());
         }
     }
 
-    private void checkWinningNumberNoCommaAtEnds(String input) {
+    private void validateWinningNumberNoCommaAtEnds(String input) {
         if (Validator.startsOrEndsWith(input, NUMBER_SEPARATOR)) {
             throw new InvalidInputException(LottoError.WINNING_NUMBER_INPUT_FORMAT_WRONG.getMessage());
         }
     }
 
-    private void checkWinningNumberCommaCount(String input) {
+    private void validateWinningNumberCommaCount(String input) {
         if (!Validator.containsCharExactCount(input, NUMBER_SEPARATOR, NUMBER_SEPARATOR_COUNT)) {
             throw new InvalidInputException(LottoError.WINNING_NUMBER_INPUT_FORMAT_WRONG.getMessage());
         }
     }
 
-    private void checkBonusNumberNonNullOrBlank(String input) {
+    private void validateBonusNumberNonNullOrBlank(String input) {
         if (Validator.isNullOrBlank(input)) {
             throw new InvalidInputException(LottoError.BONUS_NUMBER_INPUT_NULL_OR_BLANK.getMessage());
         }

@@ -11,7 +11,7 @@ public final class PurchaseAmount {
     private final int value;
 
     private PurchaseAmount(int value) {
-        validatePurchaseAmount(value);
+        validate(value);
         this.value = value;
     }
 
@@ -27,18 +27,18 @@ public final class PurchaseAmount {
         return value;
     }
 
-    private void validatePurchaseAmount(int value) {
-        checkMinimumPurchaseAmount(value);
-        checkMultipleOfThousand(value);
+    private void validate(int value) {
+        validateMinimumAmount(value);
+        validateMultipleOfThousand(value);
     }
 
-    private void checkMinimumPurchaseAmount(int value) {
+    private void validateMinimumAmount(int value) {
         if (Validator.isLessThan(value, PURCHASE_AMOUNT_THRESHOLD)) {
             throw new InvalidPurchaseAmountException(LottoError.PURCHASE_AMOUNT_LESS_THAN_MINIMUM.getMessage());
         }
     }
 
-    private void checkMultipleOfThousand(int value) {
+    private void validateMultipleOfThousand(int value) {
         if (!Validator.isDivisibleBy(value, PURCHASE_AMOUNT_UNIT)) {
             throw new InvalidPurchaseAmountException(LottoError.PURCHASE_AMOUNT_NOT_MULTIPLE_OF_THOUSAND.getMessage());
         }
