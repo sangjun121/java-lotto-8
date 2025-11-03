@@ -89,4 +89,3 @@ public enum Rank {
                 .toList();
     }
 }
-
