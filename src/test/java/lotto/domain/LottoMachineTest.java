@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.List;
+import lotto.domain.vo.Lotto;
 import lotto.exception.InvalidLottoException;
 import lotto.exception.LottoError;
 import org.junit.jupiter.api.Test;
@@ -19,9 +20,10 @@ class LottoMachineTest {
         Lottos lottos = lottoMachine.generateLottos(VALID_LOTTO_COUNT);
 
         assertThat(lottos.getLottos())
-                .allSatisfy(lotto ->
-                        assertThat(lotto.getNumbers())
-                                .containsExactly(1, 2, 3, 4, 5, 6));
+                .hasSize(VALID_LOTTO_COUNT)
+                .extracting(Lotto::getNumbers)
+                .allMatch(numbers -> numbers.equals(List.of(1, 2, 3, 4, 5, 6)));
+
     }
 
     @Test
