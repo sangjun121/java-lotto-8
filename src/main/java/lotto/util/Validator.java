@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 
 public final class Validator {
+    private static final int FIRST_CHAR_INDEX = 0;
 
     private Validator() {
     }
@@ -30,7 +31,7 @@ public final class Validator {
     }
 
     public static boolean containsCharExactCount(String target, String character, int expectedCount) {
-        char searchChar = character.charAt(0);
+        char searchChar = character.charAt(FIRST_CHAR_INDEX);
 
         long count = target.chars()
                 .filter(c -> c == searchChar)
