@@ -21,7 +21,7 @@ class LottoServiceTest {
         PurchaseAmount purchaseAmount = PurchaseAmount.from(10000);
 
         Lottos lottos = lottoService.generateLotto(purchaseAmount);
-        int resultLottosSize = lottos.getLottos().size();
+        int resultLottosSize = lottos.getValues().size();
 
         assertThat(resultLottosSize).isEqualTo(10);
     }

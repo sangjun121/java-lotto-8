@@ -15,20 +15,20 @@ public class Lottos {
     private static final int CALCULATION_SCALE = 3;
     private static final int DISPLAY_SCALE = 1;
 
-    private final List<Lotto> lottos;
+    private final List<Lotto> values;
 
-    public Lottos(List<Lotto> lottos) {
-        this.lottos = List.copyOf(lottos);
+    public Lottos(List<Lotto> values) {
+        this.values = List.copyOf(values);
     }
 
-    public List<Lotto> getLottos() {
-        return lottos;
+    public List<Lotto> getValues() {
+        return values;
     }
 
     public Map<Rank, Integer> countByRank(WinningNumber winningNumber, BonusNumber bonusNumber) {
         Map<Rank, Integer> rankCounts = new EnumMap<>(Rank.class);
 
-        for (Lotto lotto : lottos) {
+        for (Lotto lotto : values) {
             Rank rank = Rank.valueOf(
                     winningNumber.countMatchesWith(lotto),
                     bonusNumber.isMatchedWith(lotto)
@@ -39,7 +39,7 @@ public class Lottos {
     }
 
     public int calculateTotalPrize(WinningNumber winningNumber, BonusNumber bonusNumber) {
-        return lottos.stream()
+        return values.stream()
                 .mapToInt(lotto -> {
                     Rank rank = Rank.valueOf(
                             winningNumber.countMatchesWith(lotto),
@@ -61,7 +61,7 @@ public class Lottos {
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (Lotto lotto : lottos) {
+        for (Lotto lotto : values) {
             sb.append(lotto.toString())
                     .append("\n");
         }

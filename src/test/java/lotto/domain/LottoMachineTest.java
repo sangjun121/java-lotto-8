@@ -19,7 +19,7 @@ class LottoMachineTest {
 
         Lottos lottos = lottoMachine.generateLottos(VALID_LOTTO_COUNT);
 
-        assertThat(lottos.getLottos())
+        assertThat(lottos.getValues())
                 .hasSize(VALID_LOTTO_COUNT)
                 .extracting(Lotto::getNumbers)
                 .allMatch(numbers -> numbers.equals(List.of(1, 2, 3, 4, 5, 6)));
