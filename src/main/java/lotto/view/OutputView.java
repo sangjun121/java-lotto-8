@@ -13,6 +13,10 @@ public class OutputView {
     private static final String COUNT_MESSAGE = " - %d개\n";
     private static final String PROFIT_RATE_MESSAGE = "총 수익률은 %s%%입니다.";
 
+    public void printErrorMessage(String message) {
+        System.out.println(message);
+    }
+
     public void printLottoCount(int lottoCount) {
         System.out.printf(LOTTO_COUNT_MESSAGE, lottoCount);
     }
