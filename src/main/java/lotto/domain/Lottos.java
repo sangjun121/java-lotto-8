@@ -38,22 +38,22 @@ public class Lottos {
         return rankCounts;
     }
 
-    public int calculateTotalPrize(WinningNumber winningNumber, BonusNumber bonusNumber) {
+    public BigDecimal calculateTotalPrize(WinningNumber winningNumber, BonusNumber bonusNumber) {
         return values.stream()
-                .mapToInt(lotto -> {
+                .map(lotto -> {
                     Rank rank = Rank.valueOf(
                             winningNumber.countMatchesWith(lotto),
                             bonusNumber.isMatchedWith(lotto)
                     );
-                    return rank.getPrizeMoney();
+                    return BigDecimal.valueOf(rank.getPrizeMoney());
                 })
-                .sum();
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     public BigDecimal calculateProfitRate(WinningNumber winningNumber, BonusNumber bonusNumber, int purchaseAmount) {
-        int totalPrizeMoney = calculateTotalPrize(winningNumber, bonusNumber);
+        BigDecimal totalPrizeMoney = calculateTotalPrize(winningNumber, bonusNumber);
 
-        return BigDecimal.valueOf(totalPrizeMoney)
+        return totalPrizeMoney
                 .divide(BigDecimal.valueOf(purchaseAmount), CALCULATION_SCALE, RoundingMode.HALF_UP)
                 .multiply(BigDecimal.valueOf(PERCENTAGE_SCALE))
                 .setScale(DISPLAY_SCALE, RoundingMode.HALF_UP);

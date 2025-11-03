@@ -60,12 +60,24 @@ class LottosTest {
     @Test
     void 로또의_전체_상금_합계를_계산한다() {
         Lottos allRankLottos = createAllRankLottos();
-        int expectedTotalPrizeMoney = Arrays.stream(Rank.values())
+        BigDecimal expectedTotalPrizeMoney = Arrays.stream(Rank.values())
                 .filter(rank -> rank != Rank.NONE)
-                .mapToInt(Rank::getPrizeMoney)
-                .sum();
+                .map(rank -> BigDecimal.valueOf(rank.getPrizeMoney()))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-        int resultTotalPrizeMoney = allRankLottos.calculateTotalPrize(validWinningNumber, validBonusNumber);
+        BigDecimal resultTotalPrizeMoney = allRankLottos.calculateTotalPrize(validWinningNumber, validBonusNumber);
+
+        assertThat(resultTotalPrizeMoney).isEqualTo(expectedTotalPrizeMoney);
+    }
+
+    @Test
+    void 총_상금이_int형_범위를_넘어서는_경우에도_정상_계산된다() {
+        Lotto first = Lotto.from(List.of(1, 2, 3, 4, 5, 6));
+        Lottos lottos = new Lottos(List.of(first, first, first, first));
+        BigDecimal expectedTotalPrizeMoney = BigDecimal.valueOf(Rank.FIRST.getPrizeMoney())
+                .multiply(BigDecimal.valueOf(4));
+
+        BigDecimal resultTotalPrizeMoney = lottos.calculateTotalPrize(validWinningNumber, validBonusNumber);
 
         assertThat(resultTotalPrizeMoney).isEqualTo(expectedTotalPrizeMoney);
     }
@@ -93,11 +105,22 @@ class LottosTest {
     }
 
     @Test
+    void int형_범위를_넘어서는_총_상금이_구입_금액의_4배일_경우_수익률은_400퍼센트이다() {
+        Lotto first = Lotto.from(List.of(1, 2, 3, 4, 5, 6));
+        Lottos lottos = new Lottos(List.of(first, first));
+        int purchaseAmount = 1000000000;
+
+        BigDecimal profitRate = lottos.calculateProfitRate(validWinningNumber, validBonusNumber, purchaseAmount);
+
+        assertThat(profitRate.toPlainString()).isEqualTo("400.0");
+    }
+
+    @Test
     void 수익률은_반올림하여_소수점_첫째자리까지_반환된다() {
         Lottos spyLottos = new Lottos(List.of()) {
             @Override
-            public int calculateTotalPrize(WinningNumber winningNumber, BonusNumber bonusNumber) {
-                return 3333;
+            public BigDecimal calculateTotalPrize(WinningNumber winningNumber, BonusNumber bonusNumber) {
+                return BigDecimal.valueOf(3333);
             }
         };
         int purchaseAmount = 10000;
