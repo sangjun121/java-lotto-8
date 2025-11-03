@@ -3,6 +3,7 @@ package lotto.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 
+import java.math.BigDecimal;
 import java.util.List;
 import lotto.config.AppConfig;
 import lotto.controller.dto.WinningStatistic;
@@ -62,5 +63,15 @@ class LottoServiceTest {
                         tuple(5, 1, true),
                         tuple(6, 1, false)
                 );
+    }
+
+    @Test
+    void 로또가_각_1등_2등_3등이면서_구입금액이_만원인_경우_수익률은_20315000프로이다(){
+        Lottos lottos = createExampleLottos();
+        PurchaseAmount purchaseAmount = PurchaseAmount.from(10000);
+        BigDecimal bigDecimal = lottoService.calculateProfitRate(lottos, validWinningNumber, validBonusNumber,
+                purchaseAmount);
+
+        assertThat(bigDecimal.toPlainString()).isEqualTo("20315000.0");
     }
 }
